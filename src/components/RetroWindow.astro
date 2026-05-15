@@ -1,0 +1,100 @@
+---
+type AccentColor = "pink" | "cyan" | "purple" | "gold";
+
+interface Props {
+  title: string;
+  accentColor?: AccentColor;
+  class?: string;
+}
+
+const { title, accentColor = "pink", class: className } = Astro.props;
+
+const ACCENTS: Record<AccentColor, { border: string; gradient: string; glow: string }> = {
+  pink: {
+    border: "#ff3fa4",
+    gradient: "linear-gradient(90deg, #6b003a, #ff3fa4)",
+    glow: "#ff3fa440",
+  },
+  cyan: {
+    border: "#00e5ff",
+    gradient: "linear-gradient(90deg, #003d4d, #00e5ff)",
+    glow: "#00e5ff40",
+  },
+  purple: {
+    border: "#bf5fff",
+    gradient: "linear-gradient(90deg, #3d0070, #bf5fff)",
+    glow: "#bf5fff40",
+  },
+  gold: {
+    border: "#ffd700",
+    gradient: "linear-gradient(90deg, #554400, #ffd700)",
+    glow: "#ffd70040",
+  },
+};
+
+const c = ACCENTS[accentColor];
+---
+
+<div
+  class={className}
+  style={{
+    border: `2px solid ${c.border}`,
+    boxShadow: `0 0 18px ${c.glow}, 0 4px 40px rgba(0,0,0,0.6)`,
+    background: "rgba(14, 3, 36, 0.94)",
+    backdropFilter: "blur(6px)",
+  }}
+>
+  <!-- Title bar -->
+  <div
+    style={{
+      background: c.gradient,
+      padding: "5px 10px",
+      display: "flex",
+      alignItems: "center",
+      justifyContent: "space-between",
+      borderBottom: `1px solid ${c.border}60`,
+      userSelect: "none",
+    }}
+  >
+    <span
+      style={{
+        color: "#fff",
+        fontFamily: "'VT323', monospace",
+        fontSize: "15px",
+        letterSpacing: "0.12em",
+        textShadow: "0 0 8px rgba(255,255,255,0.6)",
+      }}
+    >
+      {title}
+    </span>
+    <div style={{ display: "flex", gap: "5px", alignItems: "center" }}>
+      {[
+        ["#ff6058", "─"],
+        ["#ffbd2e", "□"],
+        ["#28c840", "✕"],
+      ].map(([color, sym], i) => (
+        <div
+          key={i}
+          title={sym}
+          style={{
+            width: "12px",
+            height: "12px",
+            borderRadius: "50%",
+            background: color,
+            border: "1px solid rgba(0,0,0,0.4)",
+            display: "flex",
+            alignItems: "center",
+            justifyContent: "center",
+            fontSize: "6px",
+            color: "rgba(0,0,0,0.4)",
+            cursor: "default",
+          }}
+        />
+      ))}
+    </div>
+  </div>
+  <!-- Content -->
+  <div style={{ padding: "16px" }}>
+    <slot />
+  </div>
+</div>

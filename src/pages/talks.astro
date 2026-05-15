@@ -1,0 +1,234 @@
+---
+import Layout from '../layouts/Layout.astro';
+import RetroNav from '../components/RetroNav.astro';
+import RetroFooter from '../components/RetroFooter.astro';
+import RetroWindow from '../components/RetroWindow.astro';
+import RainbowRule from '../components/RainbowRule.astro';
+import RetroTag from '../components/RetroTag.astro';
+
+interface Talk {
+  title: string;
+  event: string;
+  location: string;
+  date: string;
+  description: string;
+  tags: string[];
+  slides?: string;
+  video?: string;
+  featured?: boolean;
+}
+
+const TALKS: Talk[] = [
+  {
+    title: "Debugging Distributed Systems at 3 AM",
+    event: "QCon San Francisco 2024",
+    location: "San Francisco, CA",
+    date: "Oct 2024",
+    description:
+      "A practical talk on building observable distributed systems — what to log, what to trace, and how to stay calm when everything is on fire. Covers OpenTelemetry, structured logging, and the mental model I use when diagnosing mysterious production issues.",
+    tags: ["distributed systems", "observability", "debugging"],
+    slides: "#",
+    video: "#",
+    featured: true,
+  },
+  {
+    title: "Developer Experience as a Feature, Not an Afterthought",
+    event: "Node.js Interactive 2023",
+    location: "Bilbao, Spain",
+    date: "May 2023",
+    description:
+      "DX is often treated as a nice-to-have. I argue it should be treated like a product feature: measured, iterated on, and owned. This talk covers how Starbase Systems reduced developer onboarding time by 60% in six months.",
+    tags: ["developer experience", "culture", "tooling"],
+    slides: "#",
+    video: "#",
+    featured: true,
+  },
+  {
+    title: "Real-time Collaboration at Scale: Lessons from 10M Users",
+    event: "JSConf EU 2023",
+    location: "Berlin, Germany",
+    date: "Jun 2023",
+    description:
+      "We rebuilt our collaboration layer from scratch using CRDTs and operational transforms. This is the story of what we tried, what failed spectacularly, and what eventually worked.",
+    tags: ["real-time", "CRDTs", "websockets", "collaboration"],
+    slides: "#",
+    video: "#",
+  },
+  {
+    title: "The Art of the Code Review",
+    event: "GitHub Universe 2022",
+    location: "San Francisco, CA",
+    date: "Nov 2022",
+    description:
+      "Code reviews should make people feel empowered, not attacked. A talk about the human side of reviewing code — giving feedback that lands, receiving criticism gracefully, and building a culture of psychological safety.",
+    tags: ["code review", "culture", "soft skills"],
+    slides: "#",
+  },
+  {
+    title: "Why Your Caching Strategy Is Wrong (and How to Fix It)",
+    event: "Strange Loop 2022",
+    location: "St. Louis, MO",
+    date: "Sep 2022",
+    description:
+      "Cache invalidation is famously hard, but most teams are doing it wrong for simpler reasons. A deep-dive into cache coherence, TTL strategies, and the surprisingly nuanced world of Redis.",
+    tags: ["caching", "redis", "performance", "backend"],
+    slides: "#",
+    video: "#",
+  },
+  {
+    title: "A Tour of Postgres Features You're Probably Not Using",
+    event: "PGConf NYC 2022",
+    location: "New York, NY",
+    date: "Apr 2022",
+    description:
+      "Postgres is far more powerful than most apps give it credit for. This lightning talk covers LISTEN/NOTIFY, generated columns, range types, and full-text search — all things I wish someone had told me earlier.",
+    tags: ["postgres", "databases", "backend"],
+    slides: "#",
+  },
+];
+---
+
+<Layout title="Talks - Cecy Correa">
+  <RetroNav currentPage="talks" />
+
+  <div style="max-width: 960px; margin: 0 auto; padding: 40px 20px 20px;">
+    <RetroWindow title="TALKS.EXE — public speaking" accentColor="purple" class="mb-8">
+      <div>
+        <div
+          style="font-family: 'VT323', monospace; font-size: 28px; color: #bf5fff; margin-bottom: 8px;"
+        >
+          Talks & Speaking
+        </div>
+        <p
+          style="font-family: 'Space Mono', monospace; font-size: 12px; color: #9980c0; line-height: 1.8; margin-bottom: 12px;"
+        >
+          I love talking about the things I've learned the hard way. Talks range
+          from technical deep-dives to softer topics around engineering culture
+          and developer experience.
+        </p>
+        <p
+          style="font-family: 'Space Mono', monospace; font-size: 12px; color: #6b5a85;"
+        >
+          Interested in having me speak at your event?{" "}
+          <a href="#" class="retro-link">
+            send me a message
+          </a>
+          .
+        </p>
+      </div>
+    </RetroWindow>
+
+    <div
+      style="display: grid; grid-template-columns: 1fr; gap: 16px;"
+    >
+      {TALKS.map((talk) => (
+        <div
+          class="talk-card"
+          style={{
+            border: `1px solid ${talk.featured ? "#ff3fa4" : "#2a1060"}`,
+            boxShadow: talk.featured
+              ? "0 0 16px #ff3fa420"
+              : "0 2px 12px rgba(0,0,0,0.4)",
+            background: "rgba(14, 3, 36, 0.85)",
+            padding: "0",
+            transition: "box-shadow 0.2s",
+            position: "relative",
+          }}
+        >
+          {talk.featured && (
+            <div
+              style="position: absolute; top: 10px; right: 10px; font-family: 'VT323', monospace; font-size: 11px; color: #ffd700; background: #1a0a00; border: 1px solid #ffd70060; padding: 1px 6px; letter-spacing: 0.1em;"
+            >
+              ★ FEATURED
+            </div>
+          )}
+
+          <!-- Color bar -->
+          <div
+            style={{
+              height: "3px",
+              background: talk.featured
+                ? "linear-gradient(90deg, #ff3fa4, #bf5fff)"
+                : "linear-gradient(90deg, #1c0845, #2a1060)",
+            }}
+          />
+
+          <div style="padding: 16px;">
+            <div
+              style={{
+                fontFamily: "'VT323', monospace",
+                fontSize: "20px",
+                color: "#e8d8ff",
+                marginBottom: "6px",
+                lineHeight: 1.2,
+                paddingRight: talk.featured ? "80px" : "0",
+              }}
+            >
+              {talk.title}
+            </div>
+
+            <div
+              style="font-family: 'Space Mono', monospace; font-size: 11px; color: #bf5fff; margin-bottom: 8px; letter-spacing: 0.05em;"
+            >
+              {talk.event} · {talk.location} · {talk.date}
+            </div>
+
+            <p
+              style="font-family: 'Space Mono', monospace; font-size: 11px; color: #9980c0; line-height: 1.7; margin-bottom: 12px;"
+            >
+              {talk.description}
+            </p>
+
+            <div
+              style="display: flex; align-items: center; justify-content: space-between; flex-wrap: wrap; gap: 8px;"
+            >
+              <div style="display: flex; gap: 6px; flex-wrap: wrap;">
+                {talk.tags.map((t) => (
+                  <RetroTag variant="purple">
+                    {t}
+                  </RetroTag>
+                ))}
+              </div>
+              <div style="display: flex; gap: 10px;">
+                {talk.slides && (
+                  <a
+                    href={talk.slides}
+                    class="retro-link"
+                    style="font-family: 'Space Mono', monospace; font-size: 11px;"
+                  >
+                    [slides]
+                  </a>
+                )}
+                {talk.video && (
+                  <a
+                    href={talk.video}
+                    class="retro-link"
+                    style="font-family: 'Space Mono', monospace; font-size: 11px; color: #ff3fa4;"
+                  >
+                    [video]
+                  </a>
+                )}
+              </div>
+            </div>
+          </div>
+        </div>
+      ))}
+    </div>
+
+    <RainbowRule />
+
+    <div
+      style="text-align: center; font-family: 'Space Mono', monospace; font-size: 11px; color: #3d2860;"
+    >
+      ✦ more talks coming soon · currently working on something for 2025 ✦
+    </div>
+  </div>
+
+  <RetroFooter />
+</Layout>
+
+<style>
+  .mb-8 {
+    margin-bottom: 32px;
+  }
+</style>

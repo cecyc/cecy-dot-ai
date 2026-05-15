@@ -1,0 +1,57 @@
+---
+import Layout from '../layouts/Layout.astro';
+import RetroNav from '../components/RetroNav.astro';
+import RetroWindow from '../components/RetroWindow.astro';
+import RainbowRule from '../components/RainbowRule.astro';
+import RetroFooter from '../components/RetroFooter.astro';
+import PostsFilter from '../components/PostsFilter.tsx';
+---
+
+<Layout title="Posts - Cecy">
+  <RetroNav currentPage="posts" />
+
+  <div style="max-width: 960px; margin: 0 auto; padding: 40px 20px 20px;">
+    <!-- Header -->
+    <RetroWindow
+      title="POSTS.DIR — blog & writing"
+      accentColor="cyan"
+      class="header-window"
+    >
+      <div>
+        <div
+          style="font-family: 'VT323', monospace; font-size: 28px; color: #00e5ff; margin-bottom: 6px;"
+        >
+          Writing
+        </div>
+        <p
+          style="font-family: 'Space Mono', monospace; font-size: 12px; color: #9980c0; line-height: 1.7;"
+        >
+          Things I write down so I don't have to explain them twice.
+          Mostly technical, occasionally opinionated.
+        </p>
+      </div>
+    </RetroWindow>
+
+    <!-- Interactive Filter Component (React Island) -->
+    <PostsFilter client:load />
+
+    <RainbowRule />
+
+    <div
+      style="text-align: center; font-family: 'Space Mono', monospace; font-size: 11px; color: #3d2860;"
+    >
+      <a href="#" class="retro-link" style="font-size: 11px;">
+        subscribe via RSS
+      </a>
+      · built with markdown, love, and mild sleep deprivation
+    </div>
+  </div>
+
+  <RetroFooter />
+</Layout>
+
+<style>
+  .header-window {
+    margin-bottom: 24px;
+  }
+</style>

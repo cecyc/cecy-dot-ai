@@ -1,0 +1,25 @@
+---
+// RainbowRule component - displays an animated rainbow gradient divider
+---
+
+<div class="rainbow-rule"></div>
+
+<style>
+  .rainbow-rule {
+    height: 3px;
+    background: linear-gradient(90deg, #ff3fa4, #ffd700, #39ff14, #00e5ff, #bf5fff, #ff3fa4);
+    background-size: 200% 100%;
+    animation: rainbow-shift 3s linear infinite;
+    margin: 20px 0;
+    opacity: 0.7;
+  }
+
+  @keyframes rainbow-shift {
+    0% {
+      background-position: 0% 50%;
+    }
+    100% {
+      background-position: 200% 50%;
+    }
+  }
+</style>

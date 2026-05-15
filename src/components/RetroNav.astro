@@ -1,0 +1,117 @@
+---
+import BlinkCursor from "./BlinkCursor.astro";
+
+export type Page = "home" | "about" | "talks" | "posts" | "uses";
+
+interface Props {
+  currentPage: Page;
+}
+
+const { currentPage } = Astro.props;
+
+const NAV_ITEMS: { id: Page; label: string; href: string }[] = [
+  { id: "home", label: "home", href: "/" },
+  { id: "about", label: "about", href: "/about" },
+  { id: "talks", label: "talks", href: "/talks" },
+  { id: "posts", label: "posts", href: "/posts" },
+  { id: "uses", label: "uses", href: "/uses" },
+];
+---
+
+<!-- Marquee bar -->
+<div
+  style={{
+    background: "rgba(255,63,164,0.08)",
+    borderBottom: "1px solid #ff3fa430",
+    padding: "4px 0",
+    overflow: "hidden",
+    fontFamily: "'Space Mono', monospace",
+    fontSize: "11px",
+    color: "#ff3fa4",
+    letterSpacing: "0.1em",
+    whiteSpace: "nowrap",
+  }}
+>
+  <span
+    style={{
+      display: "inline-block",
+      animation: "marquee-scroll 28s linear infinite",
+    }}
+  >
+    {[
+      "✦ welcome to my corner of the internet ✦",
+      "  ★ thinking about ... software engineering ★ backend systems ★ developer tooling ★  ",
+      "  ✦ cybersecurity ✦ netscape navigator recommended (jk) ✦  ",
+    ]
+      .join("  ")
+      .repeat(2)}
+  </span>
+</div>
+
+<!-- Main nav -->
+<header
+  style={{
+    position: "sticky",
+    top: 0,
+    zIndex: 100,
+    background: "rgba(8, 1, 24, 0.96)",
+    backdropFilter: "blur(10px)",
+    borderBottom: "1px solid #ff3fa450",
+    boxShadow: "0 2px 24px rgba(255,63,164,0.15)",
+  }}
+>
+  <div
+    style={{
+      maxWidth: "960px",
+      margin: "0 auto",
+      padding: "10px 20px",
+      display: "flex",
+      alignItems: "center",
+      justifyContent: "space-between",
+      gap: "16px",
+    }}
+  >
+    <!-- Logo -->
+    <a
+      href="/"
+      style={{
+        background: "none",
+        border: "none",
+        cursor: "pointer",
+        padding: 0,
+        display: "flex",
+        alignItems: "baseline",
+        gap: "2px",
+        textDecoration: "none",
+      }}
+    >
+      <span
+        style={{
+          fontFamily: "'VT323', monospace",
+          fontSize: "30px",
+          color: "#ff3fa4",
+          letterSpacing: "0.04em",
+          textShadow: "0 0 12px #ff3fa460",
+          lineHeight: 1,
+        }}
+      >
+        cecy.ai
+      </span>
+      <BlinkCursor color="#00e5ff" />
+    </a>
+
+    <!-- Nav buttons -->
+    <nav style={{ display: "flex", gap: "4px", flexWrap: "wrap" }}>
+      {
+        NAV_ITEMS.map((item) => (
+          <a
+            href={item.href}
+            class={`nav-btn${currentPage === item.id ? " active" : ""}`}
+          >
+            {item.label}
+          </a>
+        ))
+      }
+    </nav>
+  </div>
+</header>

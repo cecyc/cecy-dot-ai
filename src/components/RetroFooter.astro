@@ -1,0 +1,157 @@
+---
+const VISITOR_TARGET = 31337;
+const VISITOR_COUNT = VISITOR_TARGET;
+
+const BADGES = [
+  { label: "no cookies!", bg: "#400040", border: "#ff3fa4", text: "#ff3fa4" },
+  { label: "made with ♥", bg: "#4a0080", border: "#bf5fff", text: "#e8d8ff" },
+  { label: "any browser", bg: "#003d4d", border: "#00e5ff", text: "#00e5ff" },
+];
+---
+
+<footer
+  style={{
+    borderTop: "1px solid #ff3fa450",
+    background: "rgba(8,1,24,0.97)",
+    padding: "24px 20px",
+    fontFamily: "'Space Mono', monospace",
+    fontSize: "11px",
+    color: "#6b5a85",
+    marginTop: "60px",
+  }}
+>
+  <div style={{ maxWidth: "960px", margin: "0 auto" }}>
+    <!-- Rainbow rule -->
+    <div
+      style={{
+        height: "2px",
+        background:
+          "linear-gradient(90deg, #ff3fa4, #ffd700, #39ff14, #00e5ff, #bf5fff, #ff3fa4)",
+        backgroundSize: "200% 100%",
+        animation: "rainbow-shift 4s linear infinite",
+        marginBottom: "20px",
+        opacity: 0.6,
+      }}
+    />
+
+    <!-- 88x31 badges -->
+    <div
+      style={{
+        display: "flex",
+        gap: "6px",
+        flexWrap: "wrap",
+        marginBottom: "20px",
+        justifyContent: "center",
+      }}
+    >
+      {
+        BADGES.map((b) => (
+          <div
+            style={{
+              width: "88px",
+              height: "31px",
+              background: b.bg,
+              border: `1px solid ${b.border}`,
+              display: "flex",
+              alignItems: "center",
+              justifyContent: "center",
+              fontSize: "9px",
+              color: b.text,
+              fontFamily: "'VT323', monospace",
+              letterSpacing: "0.05em",
+              boxShadow: `0 0 6px ${b.border}40`,
+              cursor: "default",
+            }}
+          >
+            {b.label}
+          </div>
+        ))
+      }
+    </div>
+
+    <!-- Visitor counter -->
+    <div
+      style={{
+        textAlign: "center",
+        marginBottom: "16px",
+        color: "#9980c0",
+      }}
+    >
+      <span
+        style={{
+          fontFamily: "'VT323', monospace",
+          fontSize: "14px",
+          color: "#ffd700",
+          background: "#1a0a2e",
+          border: "1px solid #ffd70060",
+          padding: "2px 10px",
+          letterSpacing: "0.15em",
+        }}
+      >
+        visitors: {String(VISITOR_COUNT).padStart(6, "0")}
+      </span>
+    </div>
+
+    <!-- Web ring -->
+    <!-- <div
+      style={{
+        display: "flex",
+        alignItems: "center",
+        justifyContent: "center",
+        gap: "12px",
+        marginBottom: "16px",
+        color: "#6b5a85",
+        fontSize: "11px",
+      }}
+    >
+      <span style={{ cursor: "pointer", color: "#9980c0" }}>←</span>
+      <span style={{ fontFamily: "'VT323', monospace", fontSize: "13px" }}>
+        ✦ software dev web ring ✦
+      </span>
+      <span style={{ cursor: "pointer", color: "#9980c0" }}>→</span>
+    </div> -->
+
+    <!-- Footer links -->
+    <div
+      style={{
+        display: "flex",
+        gap: "16px",
+        justifyContent: "center",
+        flexWrap: "wrap",
+        marginBottom: "12px",
+      }}
+    >
+      {
+        [
+          ["find me on github", "https://github.com/cecyc"],
+        ].map(([label, href]) => (
+          <a href={href} class="retro-link" style={{ fontSize: "11px" }}>
+            {label}
+          </a>
+        ))
+      }
+    </div>
+
+    <div style={{ textAlign: "center", color: "#3d2860", fontSize: "10px" }}>
+      © 2026 cecy correa · built with astro + love
+    </div>
+  </div>
+</footer>
+
+<script>
+  // Client-side visitor counter animation
+  const counterElement = document.querySelector('footer span[style*="visitors"]');
+  if (counterElement) {
+    const VISITOR_TARGET = 31337;
+    let count = VISITOR_TARGET - 12;
+
+    const interval = setInterval(() => {
+      if (count >= VISITOR_TARGET) {
+        clearInterval(interval);
+        return;
+      }
+      count++;
+      counterElement.textContent = `visitors: ${String(count).padStart(6, "0")}`;
+    }, 80);
+  }
+</script>

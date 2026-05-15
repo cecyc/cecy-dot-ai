@@ -1,0 +1,271 @@
+---
+import Layout from '../layouts/Layout.astro';
+import RetroNav from '../components/RetroNav.astro';
+import RetroFooter from '../components/RetroFooter.astro';
+import RetroWindow from '../components/RetroWindow.astro';
+import RainbowRule from '../components/RainbowRule.astro';
+import RetroTag from '../components/RetroTag.astro';
+
+const SKILLS = [
+  { name: "Ruby", level: 5 },
+  { name: "Ruby on Rails", level: 5 },
+  { name: "Python", level: 4 },
+  { name: "Astro", level: 3 },
+];
+
+const TIMELINE = [
+  {
+    year: "2025–present",
+    role: "Senior Software Engineer",
+    company: "Huntress",
+    note: "Working on backend billing infrastructure",
+    color: "#ff3fa4",
+  },
+  {
+    year: "2022–2025",
+    role: "Staff Software Engineer",
+    company: "Netlify",
+    note: "Working on backend billing systems",
+    color: "#bf5fff",
+  },
+  {
+    year: "2020–2022",
+    role: "Software Developer",
+    company: "Shopify",
+    note: "Backend developer working on third-party developer tooling",
+    color: "#00e5ff",
+  },
+  {
+    year: "2018–2020",
+    role: "Software Engineer",
+    company: "Thinkful (a Chegg Company)",
+    note: "Full-stack engineer working in edu-tech",
+    color: "#ffd700",
+  },
+  {
+    year: "2015–2018",
+    role: "Software Engineer",
+    company: "ReturnPath",
+    note: "Software Engineer working on third party API development",
+    color: "#ff3fa4",
+  },
+];
+
+const QUICK_FACTS = [
+  ["education", "MIS Cybersecurity, UC Berkeley"],
+  ["languages (human)", "English, Spanish, trying to learn Japanese"],
+  ["languages (computer)", "Ruby, Python"],
+  ["hobbies", "crochet, film, cozy video games, karaoke"],
+  ["last book I loved", "There Is No Anti-memetic Division"],
+  ["hot take", "tabs > spaces (i said what i said)"],
+];
+---
+
+<Layout title="About - Cecy Correa">
+  <RetroNav currentPage="about" />
+
+  <div style="max-width: 960px; margin: 0 auto; padding: 40px 20px 20px;">
+    <!-- Header with avatar -->
+    <RetroWindow title="ABOUT.ME — cecy correa" accentColor="pink" class="mb-6">
+      <div
+        style="display: grid; grid-template-columns: auto 1fr; gap: 28px; align-items: start;"
+      >
+        <!-- Avatar -->
+        <div style="flex-shrink: 0;">
+          <div
+            style="width: 120px; height: 120px; border: 2px solid #ff3fa4; box-shadow: 0 0 18px #ff3fa440; background: linear-gradient(135deg, #1c0845, #3d0070); display: flex; align-items: center; justify-content: center; flex-direction: column; gap: 4px; position: relative; overflow: hidden;"
+          >
+            <div
+              style="font-family: 'VT323', monospace; font-size: 48px; line-height: 1; filter: drop-shadow(0 0 8px #ff3fa4);"
+            >
+              <img
+                src="/profile-pixelated.png"
+                alt="Cecy Correa"
+                style="width: 120px; height: 120px; image-rendering: pixelated; object-fit: cover;"
+              />
+            </div>
+            <!-- Corner decorations -->
+            {["top-left", "top-right", "bottom-left", "bottom-right"].map((pos) => (
+              <div
+                style={{
+                  position: "absolute",
+                  width: "8px",
+                  height: "8px",
+                  borderTop: pos.includes("top") ? "2px solid #ff3fa4" : "none",
+                  borderBottom: pos.includes("bottom") ? "2px solid #ff3fa4" : "none",
+                  borderLeft: pos.includes("left") ? "2px solid #ff3fa4" : "none",
+                  borderRight: pos.includes("right") ? "2px solid #ff3fa4" : "none",
+                  top: pos.includes("top") ? "4px" : "auto",
+                  bottom: pos.includes("bottom") ? "4px" : "auto",
+                  left: pos.includes("left") ? "4px" : "auto",
+                  right: pos.includes("right") ? "4px" : "auto",
+                }}
+              />
+            ))}
+          </div>
+        </div>
+
+        <!-- Bio -->
+        <div>
+          <div
+            style="font-family: 'VT323', monospace; font-size: 32px; color: #ff3fa4; margin-bottom: 4px; text-shadow: 0 0 12px #ff3fa460;"
+          >
+            Cecy Correa
+          </div>
+          <div
+            style="font-family: 'Space Mono', monospace; font-size: 12px; color: #bf5fff; margin-bottom: 12px; letter-spacing: 0.08em;"
+          >
+            Senior Software Engineer
+          </div>
+          <p
+            style="font-family: 'Space Mono', monospace; font-size: 12px; color: #e8d8ff; line-height: 1.8; margin-bottom: 10px;"
+          >
+            I've been building software for 10+ years, mostly on the
+            backend side of things. I love the unglamorous problems —
+            the ones where things need to be{" "}
+            <span style="color: #00e5ff;">reliable</span>, and{" "}
+            <span style="color: #00e5ff;">maintainable</span>.
+          </p>
+          <p
+            style="font-family: 'Space Mono', monospace; font-size: 12px; color: #9980c0; line-height: 1.8;"
+          >
+            Outside of code, you'll find me crocheting, or developing mobile apps for fun.
+          </p>
+        </div>
+      </div>
+    </RetroWindow>
+
+    <div
+      style="display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 24px; margin-bottom: 24px;"
+    >
+      <!-- Skills -->
+      <RetroWindow title="SKILLS.DB" accentColor="cyan">
+        <div>
+          {SKILLS.map((s) => (
+            <div
+              style="display: grid; grid-template-columns: 120px 1fr; align-items: center; gap: 12px; padding: 5px 0; border-bottom: 1px dashed #1c0845;"
+            >
+              <span
+                style="font-family: 'Space Mono', monospace; font-size: 12px; color: #e8d8ff;"
+              >
+                {s.name}
+              </span>
+              <div style="display: flex; gap: 3px;">
+                {Array.from({ length: 5 }, (_, i) => (
+                  <span
+                    style={{
+                      color: i < s.level ? "#ff3fa4" : "#2a1060",
+                      fontSize: "14px",
+                      textShadow: i < s.level ? "0 0 6px #ff3fa480" : "none",
+                    }}
+                  >
+                    ★
+                  </span>
+                ))}
+              </div>
+            </div>
+          ))}
+          <div
+            style="font-family: 'Space Mono', monospace; font-size: 10px; color: #3d2860; margin-top: 10px; text-align: right;"
+          >
+            ★ = proficient, ★★★★★ = expert
+          </div>
+        </div>
+      </RetroWindow>
+
+      <!-- Quick Facts -->
+      <RetroWindow title="QUICKFACTS.TXT" accentColor="purple">
+        <div>
+          {QUICK_FACTS.map(([key, val], i) => (
+            <div
+              style={{
+                display: "grid",
+                gridTemplateColumns: "140px 1fr",
+                gap: "8px",
+                padding: "5px 0",
+                borderBottom: i < QUICK_FACTS.length - 1 ? "1px dashed #1c0845" : "none",
+                fontFamily: "'Space Mono', monospace",
+                fontSize: "11px",
+                alignItems: "baseline",
+              }}
+            >
+              <span style="color: #9980c0;">{key}:</span>
+              <span style="color: #e8d8ff;">{val}</span>
+            </div>
+          ))}
+        </div>
+      </RetroWindow>
+    </div>
+
+    <!-- Timeline -->
+    <RetroWindow title="CAREER.LOG" accentColor="gold" class="mb-6">
+      <div>
+        {TIMELINE.map((t) => (
+          <div
+            style="display: grid; grid-template-columns: 110px 1fr; gap: 16px; padding: 12px 0; border-bottom: 1px dashed #1c0845; align-items: start;"
+          >
+            <span
+              style={{
+                fontFamily: "'VT323', monospace",
+                fontSize: "14px",
+                color: t.color,
+                letterSpacing: "0.05em",
+                paddingTop: "2px",
+              }}
+            >
+              {t.year}
+            </span>
+            <div>
+              <div
+                style="font-family: 'Space Mono', monospace; font-size: 12px; color: #e8d8ff; margin-bottom: 2px;"
+              >
+                {t.role} @{" "}
+                <span style={{ color: t.color }}>{t.company}</span>
+              </div>
+              <div
+                style="font-family: 'Space Mono', monospace; font-size: 11px; color: #6b5a85; font-style: italic;"
+              >
+                {t.note}
+              </div>
+            </div>
+          </div>
+        ))}
+      </div>
+    </RetroWindow>
+
+    <!-- Interests -->
+    <RetroWindow title="INTERESTS.EXE" accentColor="pink">
+      <div>
+        <p
+          style="font-family: 'Space Mono', monospace; font-size: 12px; color: #9980c0; margin-bottom: 14px;"
+        >
+          things i think about, talk about, and occasionally write about:
+        </p>
+        <div style="display: flex; gap: 8px; flex-wrap: wrap;">
+          {[
+            "cybersecurity",
+            "developer experience",
+            "team retros",
+            "support engineering",
+            "tech education",
+            "game design",
+          ].map((tag) => (
+            <RetroTag variant={(["pink", "cyan", "purple"][Math.floor(tag.length % 3)]) as "pink" | "cyan" | "purple"}>
+              {tag}
+            </RetroTag>
+          ))}
+        </div>
+      </div>
+    </RetroWindow>
+
+    <RainbowRule />
+  </div>
+
+  <RetroFooter />
+</Layout>
+
+<style>
+  .mb-6 {
+    margin-bottom: 24px;
+  }
+</style>

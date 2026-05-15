@@ -1,17 +1,308 @@
 ---
+import Layout from '../layouts/Layout.astro';
+import RetroWindow from '../components/RetroWindow.astro';
+import RainbowRule from '../components/RainbowRule.astro';
+import BlinkCursor from '../components/BlinkCursor.astro';
+import RetroTag from '../components/RetroTag.astro';
+import RetroNav from '../components/RetroNav.astro';
+import RetroFooter from '../components/RetroFooter.astro';
 
+const LATEST_POSTS = [
+  {
+    title: "Understanding Distributed Consensus: Raft in Plain English",
+    date: "Mar 15, 2024",
+    slug: "raft-consensus",
+  },
+  {
+    title: "How I Set Up My Terminal to Feel Like a Spaceship",
+    date: "Feb 28, 2024",
+    slug: "terminal-setup",
+  },
+  {
+    title: "The Hidden Cost of Abstractions in Go",
+    date: "Jan 20, 2024",
+    slug: "go-abstractions",
+  },
+  {
+    title: "Building Real-Time Collaboration from Scratch",
+    date: "Dec 10, 2023",
+    slug: "realtime-collab",
+  },
+];
 ---
 
-<html lang="en">
-	<head>
-		<meta charset="utf-8" />
-		<link rel="icon" type="image/svg+xml" href="/favicon.svg" />
-		<link rel="icon" href="/favicon.ico" />
-		<meta name="viewport" content="width=device-width" />
-		<meta name="generator" content={Astro.generator} />
-		<title>Astro</title>
-	</head>
-	<body>
-		<h1>Astro</h1>
-	</body>
-</html>
+<Layout title="cecy correa — home">
+  <RetroNav currentPage="home" />
+
+  <div style={{ maxWidth: "960px", margin: "0 auto", padding: "40px 20px 20px" }}>
+    <!-- Hero window -->
+    <RetroWindow title="HELLO.EXE — cecy correa's personal website" accentColor="pink" style={{ marginBottom: "24px" }}>
+      <div>
+        <div
+          style={{
+            fontFamily: "'VT323', monospace",
+            fontSize: "52px",
+            color: "#00e5ff",
+            lineHeight: 1,
+            marginBottom: "12px",
+            textShadow: "0 0 20px #00e5ff60",
+            animation: "glow-pulse 3s ease-in-out infinite",
+          }}
+        >
+          Hello, World!
+          <BlinkCursor color="#ff3fa4" />
+        </div>
+
+        <p
+          style={{
+            fontFamily: "'Space Mono', monospace",
+            fontSize: "13px",
+            color: "#e8d8ff",
+            lineHeight: 1.8,
+            marginBottom: "10px",
+          }}
+        >
+          I'm{" "}
+          <span style={{ color: "#ff3fa4", fontWeight: "bold" }}>Cecy Correa</span>, 
+          not actual AI, but a software engineer who builds things for the web and beyond. I care
+          deeply about making complex things feel approachable.
+        </p>
+        <p
+          style={{
+            fontFamily: "'Space Mono', monospace",
+            fontSize: "13px",
+            color: "#9980c0",
+            lineHeight: 1.8,
+            marginBottom: "16px",
+          }}
+        >
+          Currently a Senior Software Engineer at{" "}
+          <span style={{ color: "#ffd700" }}>Huntress</span>. Previously
+          at Netlify and Shopify. I also occasionally speak at conferences,
+          and write about things I learn.
+        </p>
+
+        <div style={{ display: "flex", gap: "8px", flexWrap: "wrap" }}>
+          <RetroTag variant="cyan">backend systems</RetroTag>
+          <RetroTag variant="purple">security</RetroTag>
+          <RetroTag variant="pink">developer tooling</RetroTag>
+          <RetroTag variant="cyan">ruby on rails</RetroTag>
+          <RetroTag variant="purple">python</RetroTag>
+        </div>
+      </div>
+    </RetroWindow>
+
+    <!-- Two-column grid -->
+    <div
+      style={{
+        display: "grid",
+        gridTemplateColumns: "repeat(auto-fit, minmax(300px, 1fr))",
+        gap: "24px",
+        marginBottom: "24px",
+      }}
+    >
+      <!-- Latest Posts -->
+      <RetroWindow title="LATEST.POSTS" accentColor="cyan">
+        <div>
+          {LATEST_POSTS.map((post, i) => (
+            <a
+              href="/posts"
+              class="post-row"
+              style={{
+                display: "block",
+                padding: "8px 6px",
+                borderBottom:
+                  i < LATEST_POSTS.length - 1
+                    ? "1px dashed #1c0845"
+                    : "none",
+                cursor: "pointer",
+                transition: "background 0.1s",
+                textDecoration: "none",
+              }}
+            >
+              <div
+                style={{
+                  fontFamily: "'Space Mono', monospace",
+                  fontSize: "12px",
+                  color: "#00e5ff",
+                  marginBottom: "3px",
+                  lineHeight: 1.4,
+                }}
+              >
+                {post.title}
+              </div>
+              <div
+                style={{
+                  fontFamily: "'Space Mono', monospace",
+                  fontSize: "10px",
+                  color: "#6b5a85",
+                }}
+              >
+                {post.date}
+              </div>
+            </a>
+          ))}
+          <a
+            href="/posts"
+            style={{
+              display: "inline-block",
+              marginTop: "12px",
+              color: "#ff3fa4",
+              background: "none",
+              border: "none",
+              cursor: "pointer",
+              fontFamily: "'Space Mono', monospace",
+              fontSize: "11px",
+              padding: 0,
+              letterSpacing: "0.05em",
+              textDecoration: "none",
+            }}
+          >
+            → view all posts
+          </a>
+        </div>
+      </RetroWindow>
+
+      <!-- Currently -->
+      <RetroWindow title="CURRENTLY.TXT" accentColor="purple">
+        <div>
+          <div class="currently-item">
+            <span class="currently-label">reading:</span>
+            <span class="currently-value">A Philosophy of Software Design</span>
+          </div>
+          <div class="currently-item">
+            <span class="currently-label">listening:</span>
+            <span class="currently-value">Bicep — Isles (for the 100th time)</span>
+          </div>
+          <div class="currently-item">
+            <span class="currently-label">playing:</span>
+            <span class="currently-value">Hades II (still)</span>
+          </div>
+          <div class="currently-item">
+            <span class="currently-label">working on:</span>
+            <span class="currently-value">a side project i can't talk about yet 🤫</span>
+          </div>
+          <div class="currently-item">
+            <span class="currently-label">learning:</span>
+            <span class="currently-value">Rust. slowly. painfully.</span>
+          </div>
+          <div class="currently-item">
+            <span class="currently-label">obsessed with:</span>
+            <span class="currently-value">Postgres LISTEN/NOTIFY</span>
+          </div>
+        </div>
+      </RetroWindow>
+    </div>
+
+    <!-- Stats -->
+    <RetroWindow title="STATS.SYS" accentColor="gold">
+      <div
+        style={{
+          display: "flex",
+          gap: "20px",
+          flexWrap: "wrap",
+          justifyContent: "space-around",
+        }}
+      >
+        <div class="stat">
+          <div class="stat-value">10+</div>
+          <div class="stat-label">years coding</div>
+        </div>
+        <div class="stat">
+          <div class="stat-value">6</div>
+          <div class="stat-label">conf talks</div>
+        </div>
+        <div class="stat">
+          <div class="stat-value">∞</div>
+          <div class="stat-label">cups of tea</div>
+        </div>
+      </div>
+    </RetroWindow>
+
+    <RainbowRule />
+
+    <!-- Quick links -->
+    <div
+      style={{
+        display: "flex",
+        gap: "12px",
+        flexWrap: "wrap",
+        justifyContent: "center",
+        fontFamily: "'Space Mono', monospace",
+        fontSize: "12px",
+      }}
+    >
+      <a href="/about" class="quick-link">about me →</a>
+      <a href="/talks" class="quick-link">talks i've given →</a>
+      <a href="/posts" class="quick-link">blog posts →</a>
+      <a href="/uses" class="quick-link">my setup →</a>
+    </div>
+  </div>
+
+  <RetroFooter />
+</Layout>
+
+<style>
+  .currently-item {
+    display: grid;
+    grid-template-columns: 90px 1fr;
+    gap: 8px;
+    padding: 5px 0;
+    border-bottom: 1px dashed #2a1060;
+    font-family: 'Space Mono', monospace;
+    font-size: 12px;
+    align-items: baseline;
+  }
+
+  .currently-label {
+    color: #9980c0;
+  }
+
+  .currently-value {
+    color: #e8d8ff;
+  }
+
+  .stat {
+    text-align: center;
+    min-width: 80px;
+  }
+
+  .stat-value {
+    font-family: 'VT323', monospace;
+    font-size: 36px;
+    color: #ffd700;
+    line-height: 1;
+    text-shadow: 0 0 12px #ffd70060;
+  }
+
+  .stat-label {
+    font-family: 'Space Mono', monospace;
+    font-size: 10px;
+    color: #9980c0;
+    letter-spacing: 0.05em;
+  }
+
+  .quick-link {
+    font-family: 'Space Mono', monospace;
+    font-size: 12px;
+    color: #9980c0;
+    background: none;
+    border: 1px solid #3d1060;
+    padding: 6px 16px;
+    cursor: pointer;
+    letter-spacing: 0.05em;
+    transition: all 0.15s;
+    text-decoration: none;
+    display: inline-block;
+  }
+
+  .quick-link:hover {
+    color: #ff3fa4;
+    border-color: #ff3fa4;
+    box-shadow: 0 0 10px #ff3fa430;
+  }
+
+  .post-row:hover {
+    background: rgba(0, 229, 255, 0.05);
+  }
+</style>

@@ -1,0 +1,52 @@
+---
+import StarField from '../components/StarField.astro';
+import '../styles/global.css';
+
+interface Props {
+  title: string;
+}
+
+const { title } = Astro.props;
+---
+
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="description" content="Astro description" />
+    <meta name="viewport" content="width=device-width" />
+    <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+    <meta name="generator" content={Astro.generator} />
+    <title>{title}</title>
+  </head>
+  <body>
+    <StarField />
+    <div class="content-wrapper">
+      <slot />
+    </div>
+  </body>
+</html>
+
+<style>
+  :root {
+    font-family: 'Space Mono', monospace;
+  }
+
+  html,
+  body {
+    min-height: 100vh;
+    margin: 0;
+    padding: 0;
+  }
+
+  body {
+    position: relative;
+    font-family: 'Space Mono', monospace;
+  }
+
+  .content-wrapper {
+    position: relative;
+    z-index: 1;
+    min-height: 100vh;
+  }
+</style>

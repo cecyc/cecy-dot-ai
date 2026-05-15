@@ -1,0 +1,24 @@
+---
+interface Props {
+  color?: string;
+}
+
+const { color = "#00e5ff" } = Astro.props;
+---
+
+<span class="blink-cursor" style={{ color }}>_</span>
+
+<style>
+  .blink-cursor {
+    animation: blink-cursor 1s step-end infinite;
+  }
+
+  @keyframes blink-cursor {
+    0%, 49% {
+      opacity: 1;
+    }
+    50%, 100% {
+      opacity: 0;
+    }
+  }
+</style>

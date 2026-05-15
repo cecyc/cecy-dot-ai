@@ -1,0 +1,186 @@
+---
+// StarField component - Generates 200 stars with animations using seeded random number generation
+interface Star {
+  id: number;
+  x: number;
+  y: number;
+  size: number;
+  duration: number;
+  delay: number;
+  color: string;
+}
+
+// Seeded random number generator for consistent star positions
+const rng = (seed: number): number => {
+  const x = Math.sin(seed + 1) * 10000;
+  return x - Math.floor(x);
+};
+
+const colors = ["#ffffff", "#ffffff", "#ffffff", "#ff3fa4", "#00e5ff", "#bf5fff"];
+
+// Generate 200 stars with deterministic positions and properties
+const stars: Star[] = Array.from({ length: 200 }, (_, i) => ({
+  id: i,
+  x: rng(i * 3.14159) * 100,
+  y: rng(i * 2.71828) * 100,
+  size: rng(i * 1.41421) * 2.2 + 0.4,
+  duration: rng(i * 1.73205) * 4 + 2,
+  delay: rng(i * 2.23606) * 7,
+  color: colors[Math.floor(rng(i * 1.61803) * colors.length)],
+}));
+---
+
+<div class="starfield">
+  {stars.map((star) => (
+    <div
+      class="star"
+      style={`
+        left: ${star.x}%;
+        top: ${star.y}%;
+        width: ${star.size}px;
+        height: ${star.size}px;
+        background: ${star.color};
+        box-shadow: ${star.color !== "#ffffff" ? `0 0 ${star.size * 4}px ${star.color}` : "none"};
+        animation: twinkle ${star.duration}s ${star.delay}s infinite ease-in-out;
+      `}
+    />
+  ))}
+</div>
+
+<style>
+  .starfield {
+    position: fixed;
+    inset: 0;
+    background: linear-gradient(180deg, #080118 0%, #0d0228 60%, #0a0520 100%);
+    overflow: hidden;
+    z-index: 0;
+  }
+
+  .star {
+    position: absolute;
+    border-radius: 50%;
+  }
+
+  @keyframes twinkle {
+    0%, 100% {
+      opacity: 0.1;
+      transform: scale(0.7);
+    }
+    50% {
+      opacity: 1;
+      transform: scale(1);
+    }
+  }
+
+  @keyframes blink-cursor {
+    0%, 49% { opacity: 1; }
+    50%, 100% { opacity: 0; }
+  }
+
+  @keyframes marquee-scroll {
+    from { transform: translateX(0); }
+    to { transform: translateX(-50%); }
+  }
+
+  @keyframes float {
+    0%, 100% { transform: translateY(0px); }
+    50% { transform: translateY(-6px); }
+  }
+
+  @keyframes rainbow-shift {
+    0% { background-position: 0% 50%; }
+    100% { background-position: 200% 50%; }
+  }
+
+  @keyframes count-up {
+    from { opacity: 0; transform: translateY(4px); }
+    to { opacity: 1; transform: translateY(0); }
+  }
+
+  @keyframes glow-pulse {
+    0%, 100% {
+      text-shadow: 0 0 8px #ff3fa4, 0 0 20px #ff3fa480;
+    }
+    50% {
+      text-shadow: 0 0 16px #ff3fa4, 0 0 40px #ff3fa4, 0 0 60px #ff3fa440;
+    }
+  }
+
+  :global(.retro-link) {
+    color: #00e5ff;
+    text-decoration: underline;
+    cursor: pointer;
+    transition: color 0.1s;
+  }
+
+  :global(.retro-link:hover) {
+    color: #ff3fa4;
+  }
+
+  :global(.nav-btn) {
+    font-family: 'Space Mono', monospace;
+    font-size: 12px;
+    padding: 4px 12px;
+    background: transparent;
+    color: #9980c0;
+    border: 1px solid #3d1060;
+    cursor: pointer;
+    transition: all 0.1s;
+    letter-spacing: 0.05em;
+  }
+
+  :global(.nav-btn:hover) {
+    color: #ff3fa4;
+    border-color: #ff3fa4;
+    box-shadow: 0 0 8px #ff3fa440;
+  }
+
+  :global(.nav-btn.active) {
+    background: #ff3fa4;
+    color: #fff;
+    border-color: #ff3fa4;
+    box-shadow: 0 0 12px #ff3fa480;
+  }
+
+  :global(.post-row:hover) {
+    background: rgba(255, 63, 164, 0.06);
+  }
+
+  :global(.talk-card:hover) {
+    box-shadow: 0 0 20px #bf5fff40 !important;
+  }
+
+  :global(.uses-item:hover) {
+    background: rgba(0, 229, 255, 0.05);
+  }
+
+  :global(.tag-chip) {
+    display: inline-block;
+    padding: 2px 8px;
+    font-family: 'Space Mono', monospace;
+    font-size: 10px;
+    background: rgba(191, 95, 255, 0.15);
+    border: 1px solid #bf5fff80;
+    color: #bf5fff;
+    letter-spacing: 0.05em;
+  }
+
+  :global(.tag-chip.cyan) {
+    background: rgba(0, 229, 255, 0.1);
+    border-color: #00e5ff80;
+    color: #00e5ff;
+  }
+
+  :global(.tag-chip.pink) {
+    background: rgba(255, 63, 164, 0.1);
+    border-color: #ff3fa480;
+    color: #ff3fa4;
+  }
+
+  :global(.skill-bar-fill) {
+    height: 100%;
+    background: linear-gradient(90deg, #ff3fa4, #bf5fff);
+    box-shadow: 0 0 8px #ff3fa480;
+    transition: width 0.8s ease;
+  }
+</style>

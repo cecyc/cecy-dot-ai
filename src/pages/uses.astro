@@ -1,0 +1,310 @@
+---
+import Layout from '../layouts/Layout.astro';
+import RetroNav from '../components/RetroNav.astro';
+import RetroFooter from '../components/RetroFooter.astro';
+import RetroWindow from '../components/RetroWindow.astro';
+import RainbowRule from '../components/RainbowRule.astro';
+
+interface UseItem {
+  name: string;
+  desc: string;
+  love?: boolean;
+}
+
+interface UseSection {
+  title: string;
+  windowTitle: string;
+  accentColor: "pink" | "cyan" | "purple" | "gold";
+  items: UseItem[];
+}
+
+const SECTIONS: UseSection[] = [
+  {
+    title: "Hardware",
+    windowTitle: "HARDWARE.INI",
+    accentColor: "pink",
+    items: [
+      {
+        name: "MacBook Pro M3 Max 16\"",
+        desc: "My daily driver. Battery life is witchcraft. The fan almost never spins, which means I can use it in bed without guilt.",
+        love: true,
+      },
+      {
+        name: "LG 27UK850 4K Monitor",
+        desc: "A second 27\" display I've had for years. USB-C docking, great color accuracy. Nothing fancy, but it works.",
+      },
+      {
+        name: "HHKB Professional Hybrid Type-S",
+        desc: "Topre switches. The most expensive keyboard I've ever bought. I justify it by saying I type a lot. I type a lot.",
+        love: true,
+      },
+      {
+        name: "Logitech MX Master 3S",
+        desc: "Horizontal scroll wheel changed my spreadsheet life. Bluetooth + USB-C. The scroll is deeply satisfying.",
+      },
+      {
+        name: "Sony WH-1000XM5",
+        desc: "ANC headphones for focus mode. Also great for pretending I can't hear things.",
+        love: true,
+      },
+      {
+        name: "iPad Pro M2 + Apple Pencil",
+        desc: "For sketching architecture diagrams, annotating papers, and drawing pixel art at 11pm when I should be sleeping.",
+      },
+    ],
+  },
+  {
+    title: "Editor & Terminal",
+    windowTitle: "EDITOR.CFG",
+    accentColor: "cyan",
+    items: [
+      {
+        name: "Neovim (primary)",
+        desc: "LazyVim as a base, heavily customized. LSP, Telescope, nvim-cmp, oil.nvim. Yes I know VSCode has all of this. No I don't care.",
+        love: true,
+      },
+      {
+        name: "VS Code (secondary)",
+        desc: "For debugging sessions, notebooks, or when a colleague needs to pair and I don't want to explain my Neovim config. Vim mode enabled, obviously.",
+      },
+      {
+        name: "Cursor",
+        desc: "VS Code fork with AI integrated. Occasionally useful for large refactors. Still haven't outsourced my soul to it.",
+      },
+      {
+        name: "kitty terminal",
+        desc: "Fast, GPU-accelerated, supports ligatures, has a multiplexer built in. Replaced iTerm2 and never looked back.",
+        love: true,
+      },
+      {
+        name: "zsh + Starship prompt",
+        desc: "Starship gives me git status, language version, and a glowing indicator when the last command failed. Configured to be minimal.",
+      },
+      {
+        name: "tmux",
+        desc: "Session management for long-running processes. My layout: code on left, terminal on right, logs at the bottom.",
+      },
+      {
+        name: "Monaspace Neon",
+        desc: "GitHub's variable-weight code font. Texture healing makes reading mixed-case identifiers genuinely better.",
+        love: true,
+      },
+    ],
+  },
+  {
+    title: "Apps & Tools",
+    windowTitle: "APPS.LST",
+    accentColor: "purple",
+    items: [
+      {
+        name: "Linear",
+        desc: "Issue tracking that doesn't make me want to cry. The keyboard shortcuts are genuinely great.",
+        love: true,
+      },
+      {
+        name: "Figma",
+        desc: "For architecture diagrams, API sketches, and the rare UI mockup. Mermaid diagrams for code, Figma for everything else.",
+      },
+      {
+        name: "Notion",
+        desc: "Notes, docs, project planning. I have a weekly review template that I fill out 60% of the time.",
+      },
+      {
+        name: "TablePlus",
+        desc: "Best database GUI I've used. Works with Postgres, MySQL, SQLite, Redis. Dark mode is beautiful.",
+        love: true,
+      },
+      {
+        name: "Raycast",
+        desc: "Spotlight replacement with extensions. Window management, clipboard history, and AI completions. Worth every penny.",
+      },
+      {
+        name: "Cleanshot X",
+        desc: "Screenshot tool with scrolling capture, annotation, and a beautiful cloud upload. Replaced the macOS default immediately.",
+      },
+      {
+        name: "Arc browser",
+        desc: "Spaces for different contexts (work, personal, side projects). Boosts are a rabbit hole. Absolutely obsessed.",
+        love: true,
+      },
+    ],
+  },
+  {
+    title: "Services & Infra",
+    windowTitle: "SERVICES.ENV",
+    accentColor: "gold",
+    items: [
+      {
+        name: "GitHub",
+        desc: "All my code lives here. Copilot is on but I fight it more than I accept it.",
+      },
+      {
+        name: "Vercel",
+        desc: "For hobby projects and static sites. Preview deployments on every PR remain genuinely magical.",
+        love: true,
+      },
+      {
+        name: "Fly.io",
+        desc: "For side projects that need actual servers. Regions are easy, pricing is sane, the CLI is lovely.",
+      },
+      {
+        name: "Cloudflare",
+        desc: "DNS, edge caching, R2 for object storage. Their Workers platform is worth exploring.",
+      },
+      {
+        name: "Neon Postgres",
+        desc: "Serverless Postgres with branching. The branch-per-PR workflow is a game changer for staging environments.",
+        love: true,
+      },
+      {
+        name: "Resend",
+        desc: "Transactional email that just works. The React email templates are a delightful DX improvement.",
+      },
+    ],
+  },
+  {
+    title: "Desk Setup",
+    windowTitle: "DESK.TXT",
+    accentColor: "pink",
+    items: [
+      {
+        name: "UPLIFT V2 Standing Desk",
+        desc: "Bamboo top, dual motors. I stand for about 2 hours a day and sit for the other 8. A work in progress.",
+      },
+      {
+        name: "Steelcase Leap V2",
+        desc: "Worth the secondhand price. My back thanked me. My wallet did not.",
+        love: true,
+      },
+      {
+        name: "Elgato Key Light Air",
+        desc: "For video calls where I want to look like I have my life together. Warm light setting only.",
+      },
+      {
+        name: "IKEA SIGNUM cable management",
+        desc: "The thing that turns a chaotic desk into a civilized one. Underrated product.",
+      },
+    ],
+  },
+];
+---
+
+<Layout title="Uses - Cecy Correa">
+  <RetroNav currentPage="uses" />
+
+  <div style="max-width: 960px; margin: 0 auto; padding: 40px 20px 20px;">
+    <!-- Header -->
+    <RetroWindow
+      title="USES.TXT — my setup"
+      accentColor="gold"
+      class="mb-6"
+    >
+      <div>
+        <div
+          style="font-family: 'VT323', monospace; font-size: 28px; color: #ffd700; margin-bottom: 6px;"
+        >
+          What I Use
+        </div>
+        <p
+          style="font-family: 'Space Mono', monospace; font-size: 12px; color: #9980c0; line-height: 1.8; margin-bottom: 8px;"
+        >
+          A living document of the hardware, software, and services I use
+          daily. Inspired by{" "}
+          <a href="https://uses.tech" class="retro-link">
+            uses.tech
+          </a>
+          .
+        </p>
+        <p
+          style="font-family: 'Space Mono', monospace; font-size: 11px; color: #6b5a85;"
+        >
+          Items marked with{" "}
+          <span style="color: #ff3fa4;">♥</span> are things I
+          particularly love.
+        </p>
+      </div>
+    </RetroWindow>
+
+    <div
+      style="display: grid; grid-template-columns: repeat(auto-fit, minmax(400px, 1fr)); gap: 24px;"
+    >
+      {SECTIONS.map((section) => (
+        <RetroWindow
+          title={section.windowTitle}
+          accentColor={section.accentColor}
+        >
+          <div>
+            <div
+              style={{
+                fontFamily: "'VT323', monospace",
+                fontSize: "20px",
+                color:
+                  section.accentColor === "pink"
+                    ? "#ff3fa4"
+                    : section.accentColor === "cyan"
+                    ? "#00e5ff"
+                    : section.accentColor === "purple"
+                    ? "#bf5fff"
+                    : "#ffd700",
+                marginBottom: "10px",
+                borderBottom: "1px solid #1c0845",
+                paddingBottom: "6px",
+              }}
+            >
+              {section.title}
+            </div>
+            {section.items.map((item) => (
+              <div
+                class="uses-item"
+                style="padding: 10px 8px; border-bottom: 1px dashed #1c0845; transition: background 0.1s;"
+              >
+                <div
+                  style="display: flex; align-items: baseline; gap: 8px; margin-bottom: 4px;"
+                >
+                  <span
+                    style="font-family: 'Space Mono', monospace; font-size: 13px; color: #e8d8ff;"
+                  >
+                    {item.name}
+                  </span>
+                  {item.love && (
+                    <span
+                      style="font-size: 12px; color: #ff3fa4; text-shadow: 0 0 6px #ff3fa4;"
+                      title="I love this"
+                    >
+                      ♥
+                    </span>
+                  )}
+                </div>
+                <p
+                  style="font-family: 'Space Mono', monospace; font-size: 11px; color: #6b5a85; line-height: 1.6;"
+                >
+                  {item.desc}
+                </p>
+              </div>
+            ))}
+          </div>
+        </RetroWindow>
+      ))}
+    </div>
+
+    <RainbowRule />
+
+    <div
+      style="text-align: center; font-family: 'Space Mono', monospace; font-size: 11px; color: #3d2860;"
+    >
+      last updated: may 2024 · this page is part of the{" "}
+      <a href="https://uses.tech" class="retro-link" style="font-size: 11px;">
+        uses.tech
+      </a>{" "}
+      community ✦
+    </div>
+  </div>
+
+  <RetroFooter />
+</Layout>
+
+<style>
+  .mb-6 {
+    margin-bottom: 24px;
+  }
+</style>

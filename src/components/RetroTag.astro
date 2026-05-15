@@ -1,0 +1,39 @@
+---
+type Variant = "purple" | "cyan" | "pink";
+
+interface Props {
+  variant?: Variant;
+}
+
+const { variant = "purple" } = Astro.props;
+---
+
+<span class:list={["tag-chip", variant !== "purple" && variant]}>
+  <slot />
+</span>
+
+<style>
+  .tag-chip {
+    display: inline-block;
+    padding: 2px 8px;
+    font-family: 'Space Mono', monospace;
+    font-size: 10px;
+    background: rgba(191, 95, 255, 0.15);
+    border: 1px solid rgba(191, 95, 255, 0.5);
+    color: #bf5fff;
+    border-radius: 3px;
+    letter-spacing: 0.05em;
+  }
+
+  .tag-chip.cyan {
+    background: rgba(0, 229, 255, 0.1);
+    border-color: #00e5ff80;
+    color: #00e5ff;
+  }
+
+  .tag-chip.pink {
+    background: rgba(255, 63, 164, 0.1);
+    border-color: #ff3fa480;
+    color: #ff3fa4;
+  }
+</style>
