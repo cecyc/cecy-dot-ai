@@ -6,88 +6,7 @@ interface Post {
   slug: string;
   tags: string[];
   excerpt: string;
-  readTime: string;
-  isNew?: boolean;
 }
-
-const POSTS: Post[] = [
-  {
-    title: "Understanding Distributed Consensus: Raft in Plain English",
-    date: "Mar 15, 2024",
-    slug: "raft-consensus",
-    tags: ["distributed systems", "consensus", "go"],
-    excerpt:
-      "Raft and Paxos always felt like magic to me until I implemented Raft from scratch. Here's what actually clicked — explained with way fewer Greek letters than the original papers.",
-    readTime: "12 min",
-    isNew: true,
-  },
-  {
-    title: "How I Set Up My Terminal to Feel Like a Spaceship",
-    date: "Feb 28, 2024",
-    slug: "terminal-setup",
-    tags: ["tooling", "productivity", "terminal"],
-    excerpt:
-      "A complete walkthrough of my Neovim + kitty + starship + tmux setup. Includes my actual dotfiles and the opinions that got me kicked out of two Slack workspaces.",
-    readTime: "8 min",
-    isNew: true,
-  },
-  {
-    title: "The Hidden Cost of Abstractions in Go",
-    date: "Jan 20, 2024",
-    slug: "go-abstractions",
-    tags: ["go", "performance", "backend"],
-    excerpt:
-      "Go's explicit style discourages over-abstraction — but some patterns still carry surprising runtime cost. I benchmarked a bunch of common patterns so you don't have to.",
-    readTime: "10 min",
-  },
-  {
-    title: "Building Real-Time Collaboration from Scratch",
-    date: "Dec 10, 2023",
-    slug: "realtime-collab",
-    tags: ["real-time", "websockets", "CRDTs"],
-    excerpt:
-      "We needed a collaborative editing feature in six weeks. Here's what we built, what we learned about CRDTs, and why we eventually just used Y.js.",
-    readTime: "15 min",
-  },
-  {
-    title: "Why I Switched From VS Code to Neovim (Sometimes)",
-    date: "Nov 5, 2023",
-    slug: "neovim-vscode",
-    tags: ["tooling", "neovim", "editors"],
-    excerpt:
-      "Not the hot take you think it is. I use both. Here's a breakdown of when each one wins, and the surprisingly sane hybrid setup I landed on.",
-    readTime: "6 min",
-  },
-  {
-    title: "Everything I Wish I Knew About CSS Grid",
-    date: "Oct 12, 2023",
-    slug: "css-grid",
-    tags: ["css", "frontend", "layout"],
-    excerpt:
-      "CSS Grid changed how I think about layout at a fundamental level. A deep-dive into implicit grids, subgrid, the auto-fill vs auto-fit distinction, and more.",
-    readTime: "9 min",
-  },
-  {
-    title: "Postgres LISTEN/NOTIFY: The Feature You're Not Using",
-    date: "Sep 3, 2023",
-    slug: "postgres-listen-notify",
-    tags: ["postgres", "real-time", "backend"],
-    excerpt:
-      "You don't need Kafka for basic event streaming. Postgres has had pub/sub baked in for decades and it's surprisingly capable for lightweight use cases.",
-    readTime: "7 min",
-  },
-  {
-    title: "A Year of Building in Public: What I Learned",
-    date: "Aug 20, 2023",
-    slug: "building-in-public",
-    tags: ["career", "reflection", "open source"],
-    excerpt:
-      "I spent a year shipping side projects publicly, writing about my process, and being more transparent than felt comfortable. Here's what happened.",
-    readTime: "11 min",
-  },
-];
-
-const ALL_TAGS = [...new Set(POSTS.flatMap((p) => p.tags))].sort();
 
 // Simple RetroTag component for React
 function RetroTag({ children, variant = "purple" }: { children: React.ReactNode; variant?: "purple" | "cyan" | "pink" }) {
@@ -130,11 +49,17 @@ function RetroTag({ children, variant = "purple" }: { children: React.ReactNode;
   );
 }
 
-export default function PostsFilter() {
+interface Props {
+  posts: Post[];
+}
+
+export default function PostsFilter({ posts }: Props) {
   const [selectedTag, setSelectedTag] = useState<string | null>(null);
   const [search, setSearch] = useState("");
 
-  const filtered = POSTS.filter((post) => {
+  const allTags = [...new Set(posts.flatMap((p) => p.tags))].sort();
+
+  const filtered = posts.filter((post) => {
     const matchesTag = !selectedTag || post.tags.includes(selectedTag);
     const matchesSearch =
       !search ||
@@ -225,7 +150,7 @@ export default function PostsFilter() {
         >
           all
         </button>
-        {ALL_TAGS.map((tag) => (
+        {allTags.map((tag) => (
           <button
             key={tag}
             onClick={() => setSelectedTag(selectedTag === tag ? null : tag)}
@@ -270,10 +195,12 @@ export default function PostsFilter() {
           </div>
         ) : (
           filtered.map((post, i) => (
-            <div
+            <a
               key={post.slug}
+              href={`/posts/${post.slug}`}
               className="post-row"
               style={{
+                display: "block",
                 padding: "16px 20px",
                 borderBottom:
                   i < filtered.length - 1
@@ -281,6 +208,7 @@ export default function PostsFilter() {
                     : "none",
                 cursor: "pointer",
                 transition: "background 0.1s",
+                textDecoration: "none",
               }}
             >
               <div
@@ -304,22 +232,6 @@ export default function PostsFilter() {
                 >
                   {post.title}
                 </div>
-                {post.isNew && (
-                  <span
-                    style={{
-                      fontFamily: "'VT323', monospace",
-                      fontSize: "12px",
-                      color: "#ffd700",
-                      background: "#1a0a00",
-                      border: "1px solid #ffd70060",
-                      padding: "1px 6px",
-                      animation: "blink-cursor 1.5s step-end infinite",
-                      whiteSpace: "nowrap",
-                    }}
-                  >
-                    NEW
-                  </span>
-                )}
               </div>
 
               <p
@@ -351,33 +263,27 @@ export default function PostsFilter() {
                 >
                   {post.date}
                 </span>
-                <span style={{ color: "#3d2860" }}>·</span>
-                <span
-                  style={{
-                    fontFamily: "'Space Mono', monospace",
-                    fontSize: "10px",
-                    color: "#6b5a85",
-                  }}
-                >
-                  {post.readTime} read
-                </span>
-                <span style={{ color: "#3d2860" }}>·</span>
-                <div style={{ display: "flex", gap: "5px", flexWrap: "wrap" }}>
-                  {post.tags.map((t) => (
-                    <RetroTag
-                      key={t}
-                      variant={
-                        selectedTag === t
-                          ? "pink"
-                          : (["purple", "cyan"][t.length % 2] as "purple" | "cyan")
-                      }
-                    >
-                      {t}
-                    </RetroTag>
-                  ))}
-                </div>
+                {post.tags.length > 0 && (
+                  <>
+                    <span style={{ color: "#3d2860" }}>·</span>
+                    <div style={{ display: "flex", gap: "5px", flexWrap: "wrap" }}>
+                      {post.tags.map((t) => (
+                        <RetroTag
+                          key={t}
+                          variant={
+                            selectedTag === t
+                              ? "pink"
+                              : (["purple", "cyan"][t.length % 2] as "purple" | "cyan")
+                          }
+                        >
+                          {t}
+                        </RetroTag>
+                      ))}
+                    </div>
+                  </>
+                )}
               </div>
-            </div>
+            </a>
           ))
         )}
       </div>

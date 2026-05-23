@@ -25,31 +25,26 @@ const SECTIONS: UseSection[] = [
     accentColor: "pink",
     items: [
       {
-        name: "MacBook Pro M3 Max 16\"",
-        desc: "My daily driver. Battery life is witchcraft. The fan almost never spins, which means I can use it in bed without guilt.",
+        name: "MacMini M4 Pro",
+        desc: "Can goe toe-to-toe with a MacBook Pro for almost anything, IMO.",
         love: true,
       },
       {
-        name: "LG 27UK850 4K Monitor",
-        desc: "A second 27\" display I've had for years. USB-C docking, great color accuracy. Nothing fancy, but it works.",
-      },
-      {
-        name: "HHKB Professional Hybrid Type-S",
-        desc: "Topre switches. The most expensive keyboard I've ever bought. I justify it by saying I type a lot. I type a lot.",
+        name: "Logitech Lift Ergonomic Mouse",
+        desc: "Don't sleep on ergonomic mice. Your hands and wrists will thank you. This one is also not too expensive and is not too bulky or ugly, as most ergonomic mice are.",
         love: true,
       },
       {
-        name: "Logitech MX Master 3S",
-        desc: "Horizontal scroll wheel changed my spreadsheet life. Bluetooth + USB-C. The scroll is deeply satisfying.",
+        name: "Logitech G735 Headphones",
+        desc: "Very comfy, not too big, and great sound quality. Great for long coding sessions.",
       },
       {
-        name: "Sony WH-1000XM5",
-        desc: "ANC headphones for focus mode. Also great for pretending I can't hear things.",
-        love: true,
+        name: "Shure MV6 USB-C Microphone",
+        desc: "Sound quality is really good for the price, and it's pretty much plug and play.",
       },
       {
-        name: "iPad Pro M2 + Apple Pencil",
-        desc: "For sketching architecture diagrams, annotating papers, and drawing pixel art at 11pm when I should be sleeping.",
+        name: "YUNZII C75 Cake Meow Wireless Mechanical Keyboard",
+        desc: "Cute keyboard with 3 modes and candy switches.",
       },
     ],
   },
@@ -59,34 +54,24 @@ const SECTIONS: UseSection[] = [
     accentColor: "cyan",
     items: [
       {
-        name: "Neovim (primary)",
-        desc: "LazyVim as a base, heavily customized. LSP, Telescope, nvim-cmp, oil.nvim. Yes I know VSCode has all of this. No I don't care.",
-        love: true,
+        name: "iTerm 2",
+        desc: "Have tried all the hype new terminals, and I keep coming back to iTerm. Sorry, I guess I'm not cool!",
       },
       {
-        name: "VS Code (secondary)",
-        desc: "For debugging sessions, notebooks, or when a colleague needs to pair and I don't want to explain my Neovim config. Vim mode enabled, obviously.",
+        name: "Windsurf",
+        desc: "Pretty much VS Code but with much better autocompletion.",
       },
       {
-        name: "Cursor",
-        desc: "VS Code fork with AI integrated. Occasionally useful for large refactors. Still haven't outsourced my soul to it.",
+        name: "zsh with ohmyzsh",
+        desc: "modified comfyline theme (powerline, but make it cute).",
       },
       {
-        name: "kitty terminal",
-        desc: "Fast, GPU-accelerated, supports ligatures, has a multiplexer built in. Replaced iTerm2 and never looked back.",
-        love: true,
+        name: "opencode",
+        desc: "Really the best CLI-based UX for AI code management.",
       },
       {
-        name: "zsh + Starship prompt",
-        desc: "Starship gives me git status, language version, and a glowing indicator when the last command failed. Configured to be minimal.",
-      },
-      {
-        name: "tmux",
-        desc: "Session management for long-running processes. My layout: code on left, terminal on right, logs at the bottom.",
-      },
-      {
-        name: "Monaspace Neon",
-        desc: "GitHub's variable-weight code font. Texture healing makes reading mixed-case identifiers genuinely better.",
+        name: "Victor Mono",
+        desc: "Don't pay an arm and a leg for Operator Mono. Victor Mono is free and just as good.",
         love: true,
       },
     ],
@@ -98,91 +83,28 @@ const SECTIONS: UseSection[] = [
     items: [
       {
         name: "Linear",
-        desc: "Issue tracking that doesn't make me want to cry. The keyboard shortcuts are genuinely great.",
+        desc: "Issue tracking that doesn't make me want to cry. Infinitely customizable and integrates beautifully with Slack!",
+      },
+      {
+        name: "Notion",
+        desc: "Notes, docs, project planning.",
         love: true,
       },
       {
         name: "Figma",
-        desc: "For architecture diagrams, API sketches, and the rare UI mockup. Mermaid diagrams for code, Figma for everything else.",
-      },
-      {
-        name: "Notion",
-        desc: "Notes, docs, project planning. I have a weekly review template that I fill out 60% of the time.",
-      },
-      {
-        name: "TablePlus",
-        desc: "Best database GUI I've used. Works with Postgres, MySQL, SQLite, Redis. Dark mode is beautiful.",
+        desc: "The vectorize image tool is nothing short of amazing and saves me a lot of work.",
         love: true,
-      },
-      {
-        name: "Raycast",
-        desc: "Spotlight replacement with extensions. Window management, clipboard history, and AI completions. Worth every penny.",
-      },
-      {
-        name: "Cleanshot X",
-        desc: "Screenshot tool with scrolling capture, annotation, and a beautiful cloud upload. Replaced the macOS default immediately.",
-      },
-      {
-        name: "Arc browser",
-        desc: "Spaces for different contexts (work, personal, side projects). Boosts are a rabbit hole. Absolutely obsessed.",
-        love: true,
-      },
-    ],
-  },
-  {
-    title: "Services & Infra",
-    windowTitle: "SERVICES.ENV",
-    accentColor: "gold",
-    items: [
-      {
-        name: "GitHub",
-        desc: "All my code lives here. Copilot is on but I fight it more than I accept it.",
-      },
-      {
-        name: "Vercel",
-        desc: "For hobby projects and static sites. Preview deployments on every PR remain genuinely magical.",
-        love: true,
-      },
-      {
-        name: "Fly.io",
-        desc: "For side projects that need actual servers. Regions are easy, pricing is sane, the CLI is lovely.",
-      },
-      {
-        name: "Cloudflare",
-        desc: "DNS, edge caching, R2 for object storage. Their Workers platform is worth exploring.",
-      },
-      {
-        name: "Neon Postgres",
-        desc: "Serverless Postgres with branching. The branch-per-PR workflow is a game changer for staging environments.",
-        love: true,
-      },
-      {
-        name: "Resend",
-        desc: "Transactional email that just works. The React email templates are a delightful DX improvement.",
       },
     ],
   },
   {
     title: "Desk Setup",
     windowTitle: "DESK.TXT",
-    accentColor: "pink",
+    accentColor: "gold",
     items: [
       {
         name: "UPLIFT V2 Standing Desk",
         desc: "Bamboo top, dual motors. I stand for about 2 hours a day and sit for the other 8. A work in progress.",
-      },
-      {
-        name: "Steelcase Leap V2",
-        desc: "Worth the secondhand price. My back thanked me. My wallet did not.",
-        love: true,
-      },
-      {
-        name: "Elgato Key Light Air",
-        desc: "For video calls where I want to look like I have my life together. Warm light setting only.",
-      },
-      {
-        name: "IKEA SIGNUM cable management",
-        desc: "The thing that turns a chaotic desk into a civilized one. Underrated product.",
       },
     ],
   },
@@ -213,7 +135,6 @@ const SECTIONS: UseSection[] = [
           <a href="https://uses.tech" class="retro-link">
             uses.tech
           </a>
-          .
         </p>
         <p
           style="font-family: 'Space Mono', monospace; font-size: 11px; color: #6b5a85;"
@@ -221,6 +142,23 @@ const SECTIONS: UseSection[] = [
           Items marked with{" "}
           <span style="color: #ff3fa4;">♥</span> are things I
           particularly love.
+        </p>
+      </div>
+    </RetroWindow>
+    <RetroWindow title="AI.EXE — skills" accentColor="purple" class="mb-6">
+      <div>
+        <div
+          style="font-family: 'VT323', monospace; font-size: 20px; color: #bf5fff; margin-bottom: 10px; border-bottom: 1px solid #1c0845; padding-bottom: 6px;"
+        >
+          AI Skills
+        </div>
+        <p
+          style="font-family: 'Space Mono', monospace; font-size: 12px; color: #9980c0; line-height: 1.8; margin-bottom: 8px;"
+        >
+          My repository of AI skills for software development.{" "}
+          <a href="https://github.com/cecyc/ai-skillz" class="retro-link">
+            View on Github.
+          </a>
         </p>
       </div>
     </RetroWindow>
