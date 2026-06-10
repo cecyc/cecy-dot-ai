@@ -9,11 +9,10 @@ This Spring semester is my last semester of my Master's program, and I decided t
 
 As our final project, we needed to build our own classifier or app using Machine Learning, and I chose to build on work I had done in a previous semester and focus on SMS spam filtering.
 
-There's [a paper](https://dl.acm.org/doi/abs/10.1145/1166160.1166191?casa_token=1dogosTuC-sAAAAA:x37_xm4YbLKNVt-khWqerllWotLF_Vn0LWYWgE7ir33cLJ4ddkfCYR8RrXHnUXQ8KX4_1B1gXRTlsQ) (that is now pretty old, but it's pretty clear the problem still stands) from 2006 that outlines the challenges around being able to detect spam in SMS because of the nature of SMS / text messages themselves.
+There's [a paper](https://dl.acm.org/doi/abs/10.1145/1166160.1166191?casa_token=1dogosTuC-sAAAAA:x37_xm4YbLKNVt-khWqerllWotLF_Vn0LWYWgE7ir33cLJ4ddkfCYR8RrXHnUXQ8KX4_1B1gXRTlsQ) (that is now pretty old, but it's pretty clear the problem still stands) from 2006 that outlines the challenges around being able to detect spam in SMS because of the nature of SMS / text messages themselves:
 
-Text messages are short! It's a lot harder to build data models around short messages.
-In order to build a model, you need access to data, and in this case, text messages are hard to get (and most users don't want you to read their texts!).
-Spammers are really good at learning and changing their tactics.
+Text messages are short! It's a lot harder to build data models around short messages. In order to build a model, you need access to data, and in this case, text messages are hard to get (and most users don't want you to read their texts!). Lastly, spammers are really good at learning and changing their tactics.
+
 Based on what I had read, I thought it might be fun to build a SMS spam classifier as my Machine Learning final project, to experience for myself how hard it can be to classify a short message as spam.
 
 Can my Machine Learning algorithm perform better than people? Let's find out.
@@ -37,9 +36,9 @@ With no preprocessing of text, these are the top "features" (or words) that appe
 ![graph2](/blog/machine-learning-spam/graph2.png)
 
 Step 3: Let's do some text pre-processing
-Pre-processing the text means removing words like you, to, the... you get the idea. These words, also known as stop words. They are common, appear a lot of text, and can muddy the waters, so to speak, so it's best to remove these.
+Pre-processing the text means removing words like "you", "to", "the"... you get the idea. These words are also known as stop words. They are common, appear a lot in writing, and can muddy the waters, so to speak, so it's best to remove these.
 
-The next thing you want to do is stemming, meaning take words like running, ran, and turn then into their stem, run. This makes it easier to spot patterns.
+The next thing you want to do is stemming, which means to take words like "running" or "ran", and turn then into their stem, "run". This makes it easier to spot patterns.
 
 Luckily all of this is very easy to do in Python. I used the [Natural Learning Tool Kit](https://www.nltk.org/), or `nltk`, to write my very simple text pre-processor:
 
@@ -71,7 +70,7 @@ Looking at the top words (aka features) with the basic text pre-processing is mu
 
 You can see, the words `call`, `txt`, `free`, or `claim` are the top words in spam messages, signaling that SMS with calls to action tend to be spam. I highlighted `www` to show that URLs in SMS can also be a good indicator of possible spam. Let's see what happens when we remove the URLs from the text messages with pre-processing.
 
-Step 4: Advanced text pre-processing goes too far
+Step 4: When advanced text pre-processing goes too far
 Based on my research around text pre-processing, it is common practice to remove things like URLs from the text, so I added this logic to my basic text pre-processor:
 
 ```python
@@ -89,13 +88,13 @@ The top words or features didn't change much, except for the exclusion of `www` 
 
 ![graph6](/blog/machine-learning-spam/graph6.png)
 
-Since the biggest change was the exclusion of `www` from the top words, I came to the conclusion that including URLs in the text messages was actually really important for being able to detect whether a text message is spam, so I removed the code that removes URLs from my text pre-processor.
+Since the biggest change was the exclusion of `www` from the top words, I came to the conclusion that **including URLs in the text messages was actually really important for being able to detect whether a text message is spam**, so I removed the code that removes URLs from my text pre-processor.
 
 Step 5: Deploying it to the web!
 
 ![webapp](/blog/machine-learning-spam/website1.png)
 
-I built a very simple Flask app and deployed it on Digital Ocean. I had never deployed an app before with any sort of Machine Learning, so I wanted to share how I did it here.
+I built a very simple Flask app and deployed it on Digital Ocean. I had never deployed an app before with any sort of Machine Learning, so I wanted to share how I did it here, especially since a lot of my classmates asked me how I did it.
 
 The biggest thing that helped me here is `pickle`. Pickle is a Python object serializer/deserializer, that can help you serialize/deserialize byte streaming data.
 
@@ -166,7 +165,7 @@ A friend of mine was able to easily fool my classifier by substituting digits an
 
 Also, the classifier only works on English words, so any foreign language is unsupported. This, again, comes down to my data source being all in English, which highlights the importance of having a large, varied data source.
 
-Lessons learned
+Lessons learned:
 I was able to validate that classifying text as spam or ham is pretty difficult, especially given the limited data sets we have at our disposal.
 
 That said, this was a fun project and I enjoyed how easily it was to put this all together with Python and Flask.
